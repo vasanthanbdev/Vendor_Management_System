@@ -31,9 +31,11 @@ environ.Env.read_env(env_file=os.path.join(BASE_DIR, ".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY='django-insecure-m^$xic9$$(6$6k@q@_t)#kz$=8+k_2nm6bno4wx-)u-b%m_mb0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
+# DEBUG=True
 
 ALLOWED_HOSTS = []
 
@@ -47,7 +49,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'Vendor_Management.apps.VendorManagementConfig',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
