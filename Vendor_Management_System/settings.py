@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'Vendor_Management.apps.VendorManagementConfig',
+    'api.apps.ApiConfig',
 ]
 
 REST_FRAMEWORK = {
