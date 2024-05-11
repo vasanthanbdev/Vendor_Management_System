@@ -23,14 +23,21 @@ class Vendor(models.Model):
 
 # Purchase Order Model
 class PurchaseOrder(models.Model):
+    STATUS_CHOICES =[
+        ('Pending', 'Pending'),
+        ('Acknowledged', 'Acknowledged'),
+        ('Delivered', 'Delivered'),
+        ('Cancelled', 'Cancelled'),
+    ]
+    
     po_number = models.CharField(max_length=20, unique=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     order_date = models.DateTimeField(auto_now_add=True)
     delivery_date = models.DateTimeField(null=True)
     items = models.JSONField()
     quantity = models.IntegerField()
-    status = models.CharField(max_length=20)
-    quality_rating = models.FloatField(max_length=20, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    quality_rating = models.FloatField(max_length=20, default=0.0)
     issue_date = models.DateTimeField(auto_now_add=True)
     acknowledgement_date = models.DateTimeField(null=True)
     
@@ -42,13 +49,13 @@ class PurchaseOrder(models.Model):
     
     
 # Vendor Performance Model
-class Performance(models.Model):
-    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-    date = models.DateTimeField()
-    on_time_delivery_rate = models.FloatField(max_length=20)
-    quality_rating_avg = models.FloatField(max_length=20)
-    average_response_time = models.FloatField(max_length=20)
-    fullfillment_rate = models.FloatField(max_length=20)
+# class Performance(models.Model):
+#     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+#     date = models.DateTimeField()
+#     on_time_delivery_rate = models.FloatField(max_length=20)
+#     quality_rating_avg = models.FloatField(max_length=20)
+#     average_response_time = models.FloatField(max_length=20)
+#     fullfillment_rate = models.FloatField(max_length=20)
     
-    class Meta:
-        verbose_name = 'Vendor Performance'
+#     class Meta:
+#         verbose_name = 'Vendor Performance'
