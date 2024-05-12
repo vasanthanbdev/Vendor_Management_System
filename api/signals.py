@@ -9,9 +9,9 @@ from django.dispatch import receiver
 def update_vendor_performance_metrics(sender, instance, created, **kwargs):
     if instance.status == 'Delivered':
         vendor = instance.vendor
-        vendor.on_time_delivery_rate = F('on_time_delivery_rate') + 1 / Count('purchaseorder', filter=Q(status='Completed'))
-        vendor.quality_rating_avg = (F('quality_rating_avg') * Count('purchaseorder', filter=Q(status='Completed')) + instance.quality_rating) / (Count('purchaseorder', filter=Q(status='Completed')) + 1)
-        vendor.fulfillment_rate = F('fulfillment_rate') + 1 / Count('purchaseorder')
+        vendor.on_time_delivery_rate = F('on_time_delivery_rate') + 1 / Count('purchaseorder', filter=Q(status='Delivered'))
+        vendor.quality_rating_avg = (F('quality_rating_avg') * Count('purchaseorder', filter=Q(status='Delivered')) + instance.quality_rating) / (Count('purchaseorder', filter=Q(status='Delivered')) + 1)
+        vendor.fulfillment_rate = F('fulfillment_rate') + 1 / Count('purchaseorder', filter=Q(status='Delivered'))
         vendor.save()
 
     if instance.acknowledgment_date:
